@@ -1,0 +1,9 @@
+
+
+
+server:
+   ssl:
+     key-store: classpath:iplocalcertificate.p12
+     key-store-password: localhost
+     key-alias: localhost
+   port: 8443

@@ -25,4 +25,30 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer saveCustomer( Customer customer){
         return customerRepository.save(customer);
     }
+    @Override
+    public Customer updateCustomer(Customer customer) {
+        try {
+            Customer _customer = customerRepository.findById(customer.getId()).get();
+            if(_customer != null){
+                customerRepository.save(customer);
+            }
+            return customer;
+        }
+        catch(IllegalArgumentException e){
+            throw new IllegalArgumentException();
+        }
+
+    }
+    @Override
+    public void deleteCustomer(Long id) {
+        try {
+            Customer _customer = customerRepository.findById(id).get();
+            if(_customer != null){
+                customerRepository.delete(_customer);
+            }
+        }
+        catch(IllegalArgumentException e){
+            throw new IllegalArgumentException();
+        }
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.restapidemo.service.store;
 
-import com.example.restapidemo.domain.Customer;
 import com.example.restapidemo.domain.Store;
 
 import java.util.List;

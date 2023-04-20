@@ -2,10 +2,12 @@ package com.example.restapidemo.controllers;
 
 import com.example.restapidemo.domain.Customer;
 import com.example.restapidemo.service.CustomerService;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(CustomerController.BASE_URL)
@@ -34,4 +36,26 @@ public class CustomerController {
     {
         return customerService.saveCustomer(customer);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> update(@RequestBody Customer customer, @PathVariable Long id) {
+        try {
+                customerService.updateCustomer(customer);
+                return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Long id) {
+        try {
+            customerService.deleteCustomer(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }
